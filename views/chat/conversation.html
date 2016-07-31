@@ -1,0 +1,42 @@
+<ion-view view-title="Negotiate with {{chatter.chat}}" id="userMessagesView">
+	<ion-nav-bar class="alt-nav">
+    </ion-nav-bar>
+    <ion-nav-buttons side="left">
+    	<a ui-sref="chat.open" class="button button-icon icon ion-ios-arrow-back"></a>
+    </ion-nav-buttons>
+    <ion-content has-bouncing="true" class="has-header has-footer" delegate-handle="userMessageScroll">
+        <div class="the_loader" ng-if="the_loader == 1"><ion-spinner class="spinner"></ion-spinner></div>
+        <div ng-repeat="message in messages track by $index" class="message-wrapper" on-hold="onMessageHold($event, $index, message)">
+            <div ng-if="message.uoc == 'false'">
+            	<img class="profile-pic left" ng-src="{{chatter.avatar}}" onerror="onProfilePicError(this)" />
+                <div class="chat-bubble left">
+                    <div class="message" ng-bind-html="message.message | nl2br" autolinker></div>
+                    <div class="message-detail">
+                        <span ng-click="viewProfile(message)" class="bold">{{chatter.chat}}</span>,
+                        <span am-time-ago="message.date"></span>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="message.uoc == 'true'">
+                <div class="chat-bubble right">
+                    <div class="message" ng-bind-html="message.message | nl2br" autolinker></div>
+                    <div class="message-detail">
+                        <span ng-click="viewProfile(message)" class="bold">{{user.username}}</span>, 
+                        <span am-time-ago="message.date"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="cf"></div>
+        </div>
+    </ion-content>
+    <form name="sendMessageForm" ng-submit="sendMessage(sendMessageForm)" novalidate>
+        <ion-footer-bar class="bar-stable item-input-inset message-footer bar-footer-elastic" keyboard-attach>
+            <label class="item-input-wrapper">
+            	<textarea ng-model="input.message" class="chatarea" value="" placeholder="Send {{chatter.chat}} a message..." required minlength="1" maxlength="1500" msd-elastic></textarea>
+            </label>
+            <div class="footer-btn-wrap footer-btn-wrap-elastic">
+            	<button class="button button-icon icon ion-android-send footer-btn footer-btn-elastic sendchat" type="submit" ng-disabled="!input.message || input.message === ''"></button>
+            </div>
+        </ion-footer-bar>
+    </form>
+</ion-view>

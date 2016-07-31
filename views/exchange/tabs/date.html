@@ -1,0 +1,76 @@
+<ion-view view-title='<img src="img/dalla_logo.png" class="top_logo" />' align-title='left'>
+    <ion-content class="">
+        <ion-slides class="super_slider" slider="swiper" options="swiperOptions" ng-if="!bdcexchangers.status">
+            <ion-slide-page  ng-repeat="bdcexchanger in bdcexchangers">
+            	<div class="item nop item-bdcs">
+                    <div class="fw100p">
+                        <div class="col col-75">
+                            <span class="spaced spacea">
+                                {{bdcexchanger.name}}
+                                <p class="">
+                                    <span class="small clear mt10 black"><i class="icon ion-ios-location"></i> {{bdcexchanger.distance | number:2}}km away<br/>{{bdcexchanger.location}}<br />{{bdcexchanger.state}} - {{bdcexchanger.country}}</span>
+                                </p>
+                            </span>
+                            <span class="clear"></span>
+                        </div>
+                        <div class="col">
+                            <p ng-if="bdcexchanger.phone">
+                                <a href="tel:{{bdcexchanger.phone}}" class="call_class"><i class="icon ion-iphone"></i> Call me</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide-page>
+        </ion-slides>
+    	<div class="list list-inset" ng-if="exchangers.status == 2">
+        	<div class="item item-text-wrap">
+        		<p>Sorry, there are currently no exchanges that match your listing<span class="really_tiny">You will receive a notification once another user's request matches yours</span></p>
+            </div>
+        </div>
+        <div class="list" ng-if="exchangers.status !== 2">
+            <div class="item item-divider" ng-if="orate !== 'Not available'">
+            	<p>Official rate: <strong>{{req.fro}}{{orate}}</strong> = <strong>{{req.tro}}1</strong></p>
+            </div>
+            <div class="item nop" ng-repeat="exchanger in exchangers" ng-if="!exchangers.status">
+            	<div class="row">
+                    <div class="col col-75">
+                    	<span class="spaced">{{exchanger.num}}.</span>
+                        <span class="spaced spacea">
+                            <a ui-sref="exchange.profile({profilename:exchanger.username, pdistance: exchanger.distance, prating: exchanger.rating, plat: exchanger.lat, plng: exchanger.lng, cavatar: exchanger.avatar})" class="green block item-text-wrap">
+                                <h3>{{exchanger.username}}</h3>
+                                <p>
+                                    <span class="small clear">Conversion rate sought:</span>
+                                    <strong>{{exchanger.currency1}}1 &rarr; {{exchanger.currency2}}{{exchanger.xrate | number: 2}}</strong>
+                                </p>
+                                <p class="">
+                                    <span class="small clear mt10 black"><i class="icon ion-ios-location"></i> {{exchanger.distance | number:2}}km away<br/>{{exchanger.location}}</span>
+                                </p>
+                            </a>
+                        </span>
+                        <span class="clear"></span>
+                    </div>
+                    <div class="col">
+                    	<p class="small" ng-if="exchanger.rating == 0">Not yet rated</p>
+                    	<i class="icon ion-star dalla-star" ng-if="exchanger.rating > '0'"></i>
+                    	<i class="icon ion-star dalla-star" ng-if="exchanger.rating > '1'"></i>
+                    	<i class="icon ion-star dalla-star" ng-if="exchanger.rating > '2'"></i>
+                    	<i class="icon ion-star dalla-star" ng-if="exchanger.rating > '3'"></i>
+                    	<i class="icon ion-star dalla-star" ng-if="exchanger.rating > '4'"></i>
+                        <div class="clear"></div>
+                        <p ng-if="exchanger.phone">
+                            <a href="tel:{{exchanger.phone}}" class="call_class"><i class="icon ion-iphone"></i> Call me</a>
+                        </p>
+                        <button class="chat_me_button" ui-sref="chat.conversation({chat:exchanger.username, avatar:exchanger.avatar})">Chat with me</button>
+                    </div>
+                </div>
+            </div>
+            <div class="" ng-if="(MoreItemsAvailable) && (loadmoreaction == 0)">
+                <button class="button button-block button-light icon ion-ios-plus button-nopadding" ng-click="loadMoreRequests('{{pager}}')">
+                </button>
+            </div>
+            <div class="" ng-if="loadmoreaction == 1">
+                <button class="button button-block button-light" disabled>Loading...</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

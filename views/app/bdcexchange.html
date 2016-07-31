@@ -1,0 +1,86 @@
+<ion-view>
+    <ion-content scroll="false">
+    	<div class="the_loader" ng-if="the_loader == 1"><ion-spinner class="spinner"></ion-spinner></div>
+    	<div class="list list-fullscreen">
+            <div class="scroller">
+            <form name="sell_form" class="the_form">
+            	<ion-scroll direction="y" style="width: 100%; height: 100%">
+                    <div class="item item-divider item-divider-alert item-text-wrap" ng-if="showalert == 1">Your request was successfully posted<br />You can continue below to add a new exchange or you can <a ui-sref="exchange.requests">view all your requests here</a></div>
+                    <div class="item item-divider">Currency for your country?</div>
+                    <label class="item item-input item-select item-select-dalla">
+                        <div class="input-label">All deals are in:</div>
+                        <select class="ion-input-select" name="seller_frocurr" ng-model="seller.frocurr" ng-change="updateSymbol()" required>
+                            <option value="" selected>-- Select --</option>
+                            <optgroup label="Popular">
+                                <option value="{{currency.id}},{{currency.symbol}}" ng-repeat="currency in currencies" ng-if="currency.popular == 1">{{currency.currency}} {{currency.symbol}}</option>
+                            </optgroup>
+                            <optgroup label="World Currencies">
+                                <option value="{{currency.id}},{{currency.symbol}}" ng-repeat="currency in currencies">{{currency.currency}} {{currency.symbol}}</option>
+                            </optgroup>
+                        </select>
+                    </label>
+                    <div class="item item-divider">Exchange currency</div>
+                    <label class="item item-input item-select item-select-dalla">
+                        <div class="input-label">Select currency:</div>
+                        <select class="ion-input-select" name="seller_tocurr" ng-model="seller.tocurr" ng-change="updateSSymbol()" required>
+                            <option value="" selected>-- Select --</option>
+                            <optgroup label="Popular">
+                                <option value="{{currency.id}},{{currency.symbol}}" ng-repeat="currency in currencies" ng-if="currency.popular == 1">{{currency.currency}} {{currency.symbol}}</option>
+                            </optgroup>
+                            <optgroup label="World Currencies">
+                                <option value="{{currency.id}},{{currency.symbol}}" ng-repeat="currency in currencies">{{currency.currency}} {{currency.symbol}}</option>
+                            </optgroup>
+                        </select>
+                    </label>
+                    <div class="item item-input-inset item-pl1">
+                    	<div class="input-label" ng-if="!sym">Your sell rate:</div>
+                        <div class="input-label" ng-if="sym">
+                        	<span ng-if="range.mplierreverse == '0'">You sell <span class="text_beside"><strong>{{ssym}}</strong></span> at:</span>
+                            <span ng-if="range.mplierreverse == '1'">You sell <span class="text_beside"><strong>{{sym}}</strong></span> at</span>
+                        </div>
+                        <label class="item-input-wrapper">
+                        	<span class="text_beside" ng-if="range.mplierreverse == '0'">{{sym}}</span>
+                            <span class="text_beside" ng-if="range.mplierreverse == '1'">{{ssym}}</span>
+                        	<input type="text" placeholder="0.00" ng-model="bdc.sell" required> 
+                        </label>
+                    </div>
+                    <div class="item item-button-center text-center exchange_loader" ng-if="currAction == '1'">
+                        <span class=""><i class="icon ion-ios-calculator" style="margin-right: 1em;"></i>Calculating Rates...</span>
+                    </div>
+                    <div class="item item-text-wrap txtcenter takenote" ng-if="sabbrev && abbrev && (sabbrev != abbrev) && (ocurr != 0) && (seller.amount > 0) && (currAction == '0')" >
+                         <span class="clear smaller_grey" ng-if="range.mplierreverse == '0'">Official exchange rate: 
+                            <span class="rated"><span class="grouped"><strong>{{ssym}}</strong>1<span class="abbrev">{{sabbrev}}</span></span><span class="groupedtoo">=</span><span class="grouped"><strong>{{sym}}</strong>{{ocurr | number:4}}<span class="abbrev">{{abbrev}}</span></span></span>
+                         </span>
+                         <span class="clear smaller_grey" ng-if="range.mplierreverse == '1'">Official exchange rate: 
+                            <span class="rated"><span class="grouped"><strong>{{sym}}</strong>1<span class="abbrev">{{abbrev}}</span></span><span class="groupedtoo">=</span><span class="grouped"><strong>{{ssym}}</strong>{{rocurr | number:4}}<span class="abbrev">{{sabbrev}}</span></span></span>
+                         </span>
+                         <span class="clear smaller_grey" ng-if="black.buy && black.sell">Black market rate: 
+                            <span class="rated"><span class="grouped"><strong>{{sym}}</strong>{{black.sell | number}}<span class="abbrev">SELL</span></span><span class="groupedtoo">=</span><span class="grouped"><strong>{{sym}}</strong>{{black.buy | number}}<span class="abbrev">BUY</span></span></span>
+                         </span>
+                    </div>
+                    <div class="item item-input-inset item-pl1">
+                    	<div class="input-label" ng-if="!sym">Your buy rate:</div>
+                        <div class="input-label" ng-if="sym">
+                        	<span ng-if="range.mplierreverse == '0'">You buy <span class="text_beside"><strong>{{ssym}}</strong></span> at:</span>
+                            <span ng-if="range.mplierreverse == '1'">You buy <span class="text_beside"><strong>{{sym}}</strong></span> at</span>
+                        </div>
+                        <label class="item-input-wrapper">
+                        	<span class="text_beside" ng-if="range.mplierreverse == '0'">{{sym}}</span>
+                            <span class="text_beside" ng-if="range.mplierreverse == '1'">{{ssym}}</span>
+                        	<input type="text" placeholder="0.00" ng-model="bdc.buy" required> 
+                        </label>
+                    </div>
+                    <label class="item item-input item-stacked-label">
+                    	<span class="input-label input-label-full">Your location:</span>
+                        <ion-google-place placeholder="Where are you?" ng-model="location" ng-change="updateLocation()" id="the-google-dalla-input-sell" />
+                    </label>
+                    <div id="map" lat="0" lng="0" zoom="16" ng-class="{'swiped' : !location.geometry.location}" smap></div>
+                </ion-scroll>
+                <div class="bar bar-footer bar-balanced bar-no-padding bar-theme" ng-if="range.mplier != 0 && location.geometry.location">
+                    <button class="button button-block button-clear button-theme icon-right ion-chevron-right button-nopad" ng-click="sellReq()" ng-disabled="sell_form.$invalid">Post your request</button>
+                </div>
+            </form>
+            </div>
+    	</div>
+    </ion-content>
+</ion-view>

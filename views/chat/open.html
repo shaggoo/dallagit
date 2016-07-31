@@ -1,0 +1,17 @@
+<ion-view view-title="Your Negotiations" cache-view="false">
+    <ion-content class="">
+    	<div class="the_loader" ng-if="the_loader == 1"><ion-spinner class="spinner"></ion-spinner></div>
+    	<div class="list list-inset" ng-if="chtters.status == 0">
+        	<div class="item">
+        		<p>You have no active negotiations</p>
+            </div>
+        </div>
+        <div class="list" ng-if="chtters.status !== 0">
+            <a class="item item-avatar" ui-sref="chat.conversation({chat:chtter.profilename, avatar:chtter.cavatar})" ng-repeat="chtter in chtters track by $index">
+                <img ng-src="{{chtter.cavatar}}">
+                <h2>{{chtter.profilename}}</h2>
+                <p><span class="green_dot" ng-if="chtter.readstatus == '0'">●</span>{{chtter.recent_message}}</p>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

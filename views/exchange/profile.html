@@ -1,0 +1,48 @@
+<ion-view view-title="{{user.profilename}}">
+    <ion-content class="">
+    	<div class="the_loader" ng-if="the_loader == 1"><ion-spinner class="spinner"></ion-spinner></div>
+        <div class="list">
+        	<div class="item item-icon-right">
+                {{user.pdistance | number:2}}km away <a ui-sref="chat.conversation({chat:user.profilename, avatar:user.cavatar})"><i class="icon icon-right ion-chatbubble thesamesize">Negotiate</i></a>
+                <span class="clear"></span>
+                <p class="small" ng-if="user.prating == 0">Not yet rated</p>
+                <i class="icon ion-star dalla-star" ng-if="user.prating > '0'"></i>
+                <i class="icon ion-star dalla-star" ng-if="user.prating > '1'"></i>
+                <i class="icon ion-star dalla-star" ng-if="user.prating > '2'"></i>
+                <i class="icon ion-star dalla-star" ng-if="user.prating > '3'"></i>
+                <i class="icon ion-star dalla-star" ng-if="user.prating > '4'"></i>
+            </div>
+            <div>
+            	<div id="map" lat="{{user.plat}}" lng="{{user.plng}}" zoom="16" umap></div>
+            </div>
+            <div class="list">
+                <div class="item nop">
+                	<span class="small clear">Recent ads</span>
+                    <div class="row btg" ng-repeat="ad in ads" ng-if="!ads.unfound">
+                        <div class="col">
+                        	<h3><span>{{ad.frogsym}}</span> <span class="grey">&rarr;</span> <span>{{ad.togsym}}</span></h3>
+                            <span class="">
+                                <p>
+                                    <span class="small clear">Conversion rate sought:</span>
+                                    <strong>{{ad.currency1}}1 &rarr; {{ad.currency2}}{{ad.xrate | number: 2}}</strong>
+                                </p>
+                                <p class="">
+                                    <span class="small clear mt10 black"><i class="icon ion-ios-location"></i> {{ad.location}}</span>
+                                </p>
+                            </span>
+                            <span class="clear"></span>
+                        </div>
+                        <div class="col" ng-if="ad.active !== '1'">
+                        	<h3 class="txtright">
+                            	<i class="icon icon-left ion-android-time"> Unlisted</i>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="item item-divider" ng-if="adscount > 0">
+                	<span class="small clear">{{adscount}}</span>
+                </div>
+        	</div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,68 @@
+<ion-view view-title="Your <strong>Exchange</strong> Listings">
+    <ion-content class="">
+    	<div class="the_loader" ng-if="the_loader == 1"><ion-spinner class="spinner"></ion-spinner></div>
+    	<div class="list list-inset" ng-if="adcount == '0' && the_loader == 0">
+            <div class="item item-text-wrap">
+                <p>You have not yet posted a request</p>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item nop" ng-repeat="buyad in buyads" ng-class="{'greybg' : !buyad.checked}">
+            	<div class="row">
+                	<div class="col">
+                        <a ui-sref="exchange.listings({id:buyad.id, fro:buyad.frogsym, tro:buyad.togsym})" class="green block item-text-wrap" ng-if="!buyad.expired && buyad.checked">
+                            <h3><span>{{buyad.frogsym}}</span><span class="grey">&rarr;</span> <span>{{buyad.togsym}}</span></h3>
+                            <p>
+                            	<span class="small clear">Conversion rate sought:</span>
+                                <strong class="" ng-if="buyad.exchangeratetype == 2">{{buyad.frogsym}}1 &rarr; {{buyad.togsym}}{{buyad.exchangerate | number}}</strong>
+                                <strong class="" ng-if="buyad.exchangeratetype == 1">{{buyad.togsym}}1 &rarr; {{buyad.frogsym}}{{buyad.exchangerate | number}}</strong>
+                            </p>
+                            <p>
+                            	<span class="small clear">Currency you have:</span>
+                                <strong class="">{{buyad.frocurrency}} [{{buyad.frosym}}]</strong>
+                                <span class="small clear">Currency you want:</span>
+                                <strong class="">{{buyad.tocurrency}} [{{buyad.tosym}}]</strong>
+                            </p>
+                            <p class="small">
+                            	<span class="small clear">Created: {{buyad.ad_timestamp}}</span>
+                                <span class="small clear">Expires: {{buyad.ad_expiry}}</span>
+                            </p>
+                            <p ng-if="buyad.formatted_address" class="">
+                            	<span class="small clear mt10 black"><i class="icon ion-ios-location"></i> <strong>{{buyad.formatted_address}}</strong></span>
+                            </p>
+                        </a>
+                        <div ng-if="buyad.expired || !buyad.checked" class="item-text-wrap">
+                        	<h3><span>{{buyad.frogsym}}</span><span class="grey">&rarr;</span> <span>{{buyad.togsym}}</span></h3>
+                            <p>
+                            	<span class="small clear">Conversion rate sought:</span>
+                                <strong class="" ng-if="buyad.exchangeratetype == 2">{{buyad.frogsym}}1 &rarr; {{buyad.togsym}}{{buyad.exchangerate | number}}</strong>
+                                <strong class="" ng-if="buyad.exchangeratetype == 1">{{buyad.togsym}}1 &rarr; {{buyad.frogsym}}{{buyad.exchangerate | number}}</strong>
+                            </p>
+                            <p ng-if="buyad.formatted_address" class="">
+                            	<span class="small clear mt10 black"><i class="icon ion-ios-location"></i> <strong>{{buyad.formatted_address}}</strong></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col txtright">
+                        <label class="toggle toggle-calm">
+                            <input type="checkbox" ng-checked="buyad.checked" ng-model="buyad.checked" ng-change="changeRequest('{{buyad.id}}','{{buyad.checked}}',$index)">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                        <p ng-if="buyad.expired && !buyad.checked" class="grey smaller">Expired</p>
+                        <p ng-if="!buyad.expired && !buyad.checked" class="grey smaller">Unlisted</p>
+                        <a ng-if="!buyad.expired && buyad.checked" class="grey smaller edit_link" ui-sref="exchange.edit({id:buyad.id, fro:buyad.frocurrency, frosym:buyad.frogsym, fros:buyad.frosym, tro:buyad.tocurrency, trosym:buyad.togsym, tros:buyad.tosym})">Edit</a>
+                    </div>
+            	</div>
+            </div>
+            <div class="item" ng-if="(MoreItemsAvailable) && (loadmoreaction == 0)">
+                <button class="button button-block button-calm icon ion-ios-plus button-nopadding" ng-click="loadMoreRequests('{{adpager}}')">
+                </button>
+            </div>
+            <div class="" ng-if="loadmoreaction == 1">
+                <button class="button button-block button-light" disabled>Loading...</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

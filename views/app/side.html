@@ -1,0 +1,21 @@
+<ion-side-menus>
+	<ion-side-menu side="left" class="main-menu main-menu-dalla" expose-aside-when="large" drag-content="false">
+        <ion-content>
+            <ion-list>
+                <ion-item class="item" nav-clear menu-toggle="left" ui-sref="app.event">Home</ion-item>
+                <ion-item class="item" nav-clear menu-toggle="left" ui-sref="exchange.requests">Your <strong>Exchange</strong> Listings</ion-item>
+                <ion-item class="item item-icon-left" nav-clear menu-toggle="left" ui-sref="exchange.settings"><i class="icon icon-left ion-ios-settings"></i>Settings</ion-item>
+                <ion-item class="item" nav-clear menu-toggle="left" ng-click="LOGDallaOut()">Logout</ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+    <ion-side-menu-content class="post-size-14px"  drag-content="false">
+    	<ion-nav-view name="menuContent"></ion-nav-view>
+        <ion-nav-bar class="bar app-top-bar">
+        	<ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"><span class="badge badge-assertive dalla-badge" ng-if="notifications.inbox > 0">{{notifications.inbox}}</span></button>
+            </ion-nav-buttons>
+            <ion-nav-back-button></ion-nav-back-button>
+        </ion-nav-bar>
+    </ion-side-menu-content>
+</ion-side-menus>

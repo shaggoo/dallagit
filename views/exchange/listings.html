@@ -1,0 +1,24 @@
+<ion-view view-title="Exchangers: {{req.tro}} &rarr; {{req.fro}}">
+    <ion-nav-bar class="bar app-top-bar">
+        <ion-nav-buttons side="left">
+            <a ui-sref="exchange.requests" class="button button-icon icon ion-ios-arrow-back"></a>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-tabs class="da-tabs">
+        <!-- Distance -->
+        <ion-tab ui-sref="exchange.listings.distance" title="Nearby">
+            <ion-nav-view name="listings-filter"></ion-nav-view>
+        </ion-tab>
+        <!-- Rate -->
+        <ion-tab ui-sref="exchange.listings.rate" title="Best Rates">
+            <ion-nav-view name="listings-rate"></ion-nav-view>
+        </ion-tab>
+        <!-- Time -->
+        <ion-tab ui-sref="exchange.listings.date" title="Recent">
+            <ion-nav-view name="listings-date"></ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>

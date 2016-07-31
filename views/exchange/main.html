@@ -1,0 +1,25 @@
+<ion-side-menus>
+	<ion-side-menu-content class="post-size-14px">
+        <ion-nav-bar class="bar app-top-bar">
+            <ion-nav-back-button side="left">
+            	<button class="button button-icon icon ion-ios-arrow-back" ui-sref="app.exchange"></button>
+            </ion-nav-back-button>
+            <ion-nav-buttons side="right">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="right">
+                	<span class="badge badge-assertive dalla-badge" ng-if="notifications.inbox != 0">{{notifications.inbox}}</span>
+                </button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="mainExchange"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="right" class="main-menu main-menu-dalla" expose-aside-when="large">
+        <ion-content >
+            <ion-list>
+                <ion-item class="item" nav-clear menu-toggle="right" ui-sref="chat.open">Negotiations<span class="badge badge-assertive" ng-if="notifications.inbox > 0">{{notifications.inbox}}</span></ion-item>
+                <ion-item class="item" nav-clear menu-toggle="right" ui-sref="exchange.requests">Your <strong>Exchange</strong> Listings</ion-item>
+                <ion-item class="item item-icon-left" nav-clear menu-toggle="right" ui-sref="exchange.settings"><i class="icon icon-left ion-ios-settings"></i>Settings</ion-item>
+                <ion-item class="item" nav-clear menu-toggle="right" ng-click="LOGDallaOut()">Logout</ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

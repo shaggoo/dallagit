@@ -1,0 +1,68 @@
+<ion-view view-title='Edit request' align-title='left'>
+    <ion-content scroll="false">
+    	<div class="list list-fullscreen">
+            <div class="scroller">
+            <form name="sell_form" class="the_form">
+            	<ion-scroll direction="y" style="width: 100%; height: 100%">
+                    <label class="item item-input item-select-dalla">
+                        <div class="input-label">I have:</div>
+                        <strong>{{req.fro}} {{req.frosym}}</strong>
+                    </label>
+                    <label class="item item-input item-select-dalla">
+                        <div class="input-label">I want:</div>
+                        <strong>{{req.tro}} {{req.trosym}}</strong>
+                    </label>
+                    <div class="item item-button-center text-center exchange_loader" ng-if="currAction == '1'">
+                        <span class=""><i class="icon ion-ios-calculator" style="margin-right: 1em;"></i>Calculating Rates...</span>
+                    </div>
+                    <div class="relatively" ng-if="req.fros && req.tros && (req.fros != req.tros) && (ocurr != 0) && (seller.amount > 0) && (currAction == '0')">
+                        <div class="extra">
+                            <div class=""><i class="icon ion-ios-plus-outline" ng-click="increaseAmt()"></i></div>
+                            <div class=""><i class="icon ion-ios-minus-outline" ng-click="decreaseAmt()"></i></div>
+                        </div>
+                    </div>
+                    <div class="item item-text-wrap txtcenter takenote" ng-if="req.fros && req.tros && (req.fros != req.tros) && (ocurr != 0) && (seller.amount > 0) && (currAction == '0')" >
+                         <span class="clear smaller_grey" ng-if="range.mplierreverse == '0'">Official exchange rate: 
+                            <span class="rated"><span class="grouped"><strong>{{req.frosym}}</strong>1<span class="abbrev">{{req.fros}}</span></span><span class="groupedtoo">=</span><span class="grouped"><strong>{{req.trosym}}</strong>{{ocurr | number:4}}<span class="abbrev">{{req.tros}}</span></span></span>
+                         </span>
+                         <span class="clear smaller_grey" ng-if="range.mplierreverse == '1'">Official exchange rate: 
+                            <span class="rated"><span class="grouped"><strong>{{req.trosym}}</strong>1<span class="abbrev">{{req.tros}}</span></span><span class="groupedtoo">=</span><span class="grouped"><strong>{{req.frosym}}</strong>{{rocurr | number:4}}<span class="abbrev">{{req.fros}}</span></span></span>
+                         </span>
+                         <span class="clear smaller_grey" ng-if="range.mplierreverse == '0'">Your exchange rate: 
+                            <span class="rated"><span class="grouped"><strong>{{req.frosym}}</strong>1<span class="abbrev">{{req.fros}}</span></span><span class="groupedtoo">=</span><span class="grouped"><strong>{{req.trosym}}</strong>{{range.mplier | number:4}}<span class="abbrev">{{req.tros}}</span></span></span>
+                         </span>
+                         
+                         <span class="clear smaller_grey" ng-if="range.mplierreverse == '1'">Your exchange rate: 
+                            <span class="rated"><span class="grouped"><strong>{{req.trosym}}</strong>1<span class="abbrev">{{req.tros}}</span></span><span class="groupedtoo">=</span><span class="grouped"><strong>{{req.frosym}}</strong>{{range.rmplier | number:4}}<span class="abbrev">{{req.fros}}</span></span></span>
+                         </span>
+                    </div>
+                    <label class="item item-input item-stacked-label relatively" ng-if="req.fros && req.tros && (req.fros != req.tros) && (ocurr != 0) && (seller.amount > 0) && (currAction == '0')">
+                        <span class="input-label input-label-full">Adjust your exchange rate:</span>
+                        <div class="clear w100p nobbg">
+                            <div class="range range-balanced">
+                            	<input type="range" name="volume" min="0" max="100" ng-model="range.val" value="{{range.val}}">
+                            </div>
+                        </div>
+                    </label>
+                    <div class="item item-text-wrap txtcenter takenote" ng-if="sabbrev && abbrev && (sabbrev != abbrev) && (ocurr != 0) && (seller.amount > 0) && (currAction == '0') && (seller.tamount != 1)">
+                         <span class="clear smaller_grey">Meaning you will get: 
+                            <span class="rated rated_center">
+                            	<span class="grouped"><strong>{{req.frosym}}</strong>{{seller.tamount | number}}
+                            		<span class="abbrev">{{req.fros}}</span>
+                                </span>
+                            </span>
+                         </span>
+                    </div>
+                    <div class="item item-text-wrap txtcenter takenote" ng-if="reqq.location">
+                         <span class="clear smaller_grey">This request is for exchanges near:</span>
+                         {{reqq.formatted_address}}
+                    </div>
+                </ion-scroll>
+                <div class="bar bar-footer bar-balanced bar-no-padding bar-theme" ng-if="range.mplier != 0">
+                    <button class="button button-block button-clear button-theme icon-right ion-chevron-right button-nopad" ng-click="updateReq()" ng-disabled="sell_form.$invalid">Update request</button>
+                </div>
+            </form>
+            </div>
+    	</div>
+    </ion-content>
+</ion-view>

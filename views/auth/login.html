@@ -1,0 +1,38 @@
+<ion-view class="login-view auth-view" cache-view="false">
+    <ion-content scroll="false">
+        <div class="row">
+            <div class="col col-center">
+            	<img src="img/dalla_logo.png" class="logo" />
+                <div class="card login-container" content-tabs tabsdata='tabsdata'>
+                    <div class="list">
+                        <form name="login_form" class="" novalidate>
+                            <label class="item item-input">
+                            	<input type="text" placeholder="Username or Email" ng-model="user.uname" required>
+                            </label>
+                            <label class="item item-input" show-hide-container>
+                            	<input type="password" placeholder="Password" ng-model="user.password" required show-hide-input>
+                            </label>
+                            <button class="button button-block button-calm button-pimped" ng-click="doLogIn()" ng-disabled="login_form.$invalid">Login</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="alternative-actions-x">
+                    <a ui-sref="auth.forgot-password">
+                    	Forgot your login details? <strong>Get help signing in</strong>.
+                    </a>
+            	</div>
+                <div class="alternative-login">
+                	<div class="or"><div class="or_in"></div></div>
+                    <a ng-click="fbLogin()">
+                    	<i class="icon ion-social-facebook"></i> Login with Facebook
+                    </a>
+            	</div>
+                <div class="bar bar-footer bar-trans">
+                	<a ui-sref="auth.signup">
+                    	Don't have an account? <strong>Sign up</strong>.
+                    </a>
+                </div>
+        	</div>
+        </div>
+    </ion-content>
+</ion-view>

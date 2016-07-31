@@ -1,0 +1,28 @@
+<ion-view class="waltkthrough-view">
+	<ion-nav-title>Settings</ion-nav-title>
+    <ion-content>
+        <div class="list list-fullscreen">
+            <form name="settings_form" class="form_norm" novalidate>
+                <label class="item item-avatar item-avatar-x">
+                	<img ng-src="{{mysettings.avatar}}" ng-class="{'img_is_square': mysettings.userImageStyle == 'mu-img-square', 'img_is_long': mysettings.userImageStyle == 'mu-img-long'}">
+                    <div class="buttons buttons-req">
+                        <button class="button button-submit button-small button-dalla icon-left ion-camera" ng-click="uploadImg()">Change your display picture</button>
+                    </div>
+                </label>
+                <div class="item item-divider item-settings">Change your username <span class="really_tiny really_tiny_too">(What name other users see)</span></div>
+                <label class="item item-input">
+                	<input type="text" placeholder="Username e.g. dallaman" ng-model="mysettings.username" required>
+                </label>
+                <div class="item item-divider item-settings">Phone number <span class="really_tiny really_tiny_too">(Will be visible to other users)</span></div>
+                <label class="item item-input">
+                	<input type="number" placeholder="e.g. 0012345567" ng-model="mysettings.phone">
+                </label>
+                <label class="item">
+                	<button class="button button-block button-calm button-pimped-g button-pimped-gg" ng-click="updateSettings()" ng-disabled="settings_form.$invalid" ng-if="onloading == 0">Update</button>
+                	<button class="button button-block button-light" ng-if="onloading == 1" disabled>Loading...</button>
+                    <button class="button button-block button-calm" ng-if="onloading == 2">Update Complete</button>
+                </label>
+        	</form>
+        </div>
+    </ion-content>
+</ion-view>
